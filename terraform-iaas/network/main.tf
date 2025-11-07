@@ -26,4 +26,3 @@ resource "azurerm_subnet" "subnet_main" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = [var.subnet.address_prefix]
 }
-

@@ -22,7 +22,7 @@ variable "rg_tags" {
 variable "storage" {
   type = map(string)
   default = {
-    name = "terracloudstate28602"
+    name = "sttcdevfrc01"
     account_tier = "Standard"
     account_replication_type = "LRS"
     min_tls = "TLS1_0"
@@ -59,11 +59,11 @@ variable "mysql_subnet" {
 }
 
 variable "database_login" {
-  type = string,
+  type = string
   default = "identifiant"
 }
 
 variable "database_password" {
-  type = string,
+  type = string
   default = "ChangeMoi"
 }

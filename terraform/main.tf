@@ -81,7 +81,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   name                         = "nan-mysql-serv"
   resource_group_name          = var.rg_name
   location                     = var.rg_location
-  administrator_login          = "login"
+  administrator_login          = var.database_login
   administrator_password       = var.database_password
   version                      = "8.0.21"
   sku_name                     = "B_Standard_B1ms"

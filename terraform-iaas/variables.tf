@@ -22,7 +22,7 @@ variable "rg_tags" {
 variable "storage" {
   type = map(string)
   default = {
-    name = "terracloudstate28602"
+    name = "sttcdevfrc01"
     account_tier = "Standard"
     account_replication_type = "LRS"
     min_tls = "TLS1_0"
@@ -32,4 +32,14 @@ variable "storage" {
 variable "storage_allow_nested_items_to_be_public" {
   type = bool
   default = false
+}
+
+variable "database_login" {
+  type = string
+  default = "identifiant"
+}
+
+variable "database_password" {
+  type = string
+  default = "ChangeMoi"
 }
