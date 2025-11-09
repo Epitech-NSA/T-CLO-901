@@ -67,3 +67,12 @@ module "db" {
   database_login = var.database_login
   database_password = var.database_password
 }
+
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/ansible/inventories/hosts.ini"
+
+  content = <<EOT
+[terra_cloud_app]
+${module.vm.vm_app_public_ip}
+EOT
+}
