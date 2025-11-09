@@ -1,1 +1,0 @@
-database_password = "PaSs-Word12743"

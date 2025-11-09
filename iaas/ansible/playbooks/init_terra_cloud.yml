@@ -1,0 +1,5 @@
+- name: Initialisation de VM TerraCloud
+  hosts: all
+  become: yes
+  roles:
+    - setup_ssh_key

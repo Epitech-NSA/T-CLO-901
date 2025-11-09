@@ -1,0 +1,12 @@
+ssh_users:
+  - name : "Raphael_pc_portable_wsl"
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDFdX/vuVJADFOFV4/VIrfo+aIIqS3bIY7liOwfU+dSNP/JZHp+bJ/vPkOMfOt5zeizpN7NTYCbF9nglwZI090hkMzEKq2i9m/caSLehpRnkuDQgOOkL64s616e5ZVxBVrOE3QsuvAzKQyFZMbuhiyAh4R1M+oi/YFfHw2hJGwf9FaEPLcZUCzh7EVKlagRTifzAlaxI5qLStDPgNuyVrFkKdgKlaf2RuNheFxIcsALsjp21MrKJkYIYa7p+c2+RzaWKhGRWg8EtR+kvCW3jKfFoTxukvGV2qPmgPK6o2tjgSA13RDpxCszX0EZJ7Ttzn5NbRyirUQz+NLrLYd/QgH4+GUzy+DOUp8W5fVkHb3OQj5RF6mEeF2f3lc4lq9viSnIgqZZFNnsH7HONTrMWFbB4SUGpR8wjEls7V7GcL34hVVGwVuVjEc2UWYCywZDbhSHc4fzdaLXhMbVW24lBkeJnvpt/74rgr34qzlFXxWmSwp9ZZGnDhZnO1QZpGREyx6L1pJxvQkfphgYchD3bXilM6COnOhSyqkClVCG9ltciBV7tT4AHdziyGC2kGDGnDHSBdsj8y7JiiIEQXYqgOK94N8UicpAuusJ1gVQnky9EGFUsOKkJPHjr/DS5o5qYJdQiPwp0a9DVdZHZAk49niFJk3+42Iipn3h6OtYaekMfQ== Raphael_pc_portable_wsl"
+
+  - name : "Raphael_pc_portable_windows"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEffhjR70QD6qzXtVKxTw8BXMzAws7GpSMbZyBkwF6vq Raphael_pc_portable_windows"
+
+  - name : "Mohamed_pc_portable_windows"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPr/L/qdOESYEissO1xa0tNgW26ZA89yQMipUe1dBkoT Mohamed_pc_portable_wsl"
+
+  - name : "Mohamed_pc_portable_wsl"
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBUuClCogy9l2IRjMm/JwtDXR9aO8a4uZa9AzEU4aQb Mohamed_pc_portable_wsl"
