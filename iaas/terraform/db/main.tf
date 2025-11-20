@@ -6,10 +6,6 @@ variable "rg_location" {
   type        = string
 }
 
-variable "subnet_id" {
-  type        = string
-}
-
 variable "database_login" {
   type        = string
 }

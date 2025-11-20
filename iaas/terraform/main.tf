@@ -49,7 +49,6 @@ module "db" {
 
   rg_name      = data.azurerm_resource_group.rg-nan_1.name
   rg_location  = data.azurerm_resource_group.rg-nan_1.location
-  subnet_id    = module.network.subnet_main_id
   database_login = var.database_login
   database_password = var.database_password
 }
