@@ -25,23 +25,6 @@ data "azurerm_resource_group" "rg-nan_1" {
   name     = var.rg_name
 }
 
-data "azurerm_container_registry" "acr" {
-  name                = "tcdevacrfrc01"
-  resource_group_name = var.rg_name
-}
-
-# resource "azurerm_storage_account" "storage_account" {
-#   name                            = var.storage.name
-#   account_replication_type        = var.storage.account_replication_type
-#   account_tier                    = var.storage.account_tier
-#   location                        = var.rg_location
-#   resource_group_name             = var.rg_name
-#   min_tls_version                 = var.storage.min_tls
-#   allow_nested_items_to_be_public = var.storage_allow_nested_items_to_be_public
-#   tags = {}
-#   timeouts {}
-# }
-
 module "network" {
   source = "./network"
 
