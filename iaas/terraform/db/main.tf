@@ -6,10 +6,6 @@ variable "rg_location" {
   type        = string
 }
 
-variable "subnet_id" {
-  type        = string
-}
-
 variable "database_login" {
   type        = string
 }
@@ -24,7 +20,6 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   location                     = var.rg_location
   administrator_login          = var.database_login
   administrator_password       = var.database_password
-  # delegated_subnet_id = var.subnet_id
   version                      = "8.0.21"
   sku_name                     = "B_Standard_B1ms"
   backup_retention_days        = 7

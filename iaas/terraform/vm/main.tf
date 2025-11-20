@@ -15,7 +15,6 @@ resource "azurerm_public_ip" "vm_app_ip" {
   location            = var.rg_location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
-  sku                 = "Standard"
 }
 
 resource "azurerm_network_interface" "vm_app_nic" {
