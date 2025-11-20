@@ -15,7 +15,7 @@ variable "database_password" {
 }
 
 resource "azurerm_mysql_flexible_server" "mysql" {
-  name                         = "nan-mysql-serv"
+  name                         = "tc-mysql-iaas-frc-001"
   resource_group_name          = var.rg_name
   location                     = var.rg_location
   administrator_login          = var.database_login
@@ -27,7 +27,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
 }
 
 resource "azurerm_mysql_flexible_database" "db" {
-  name                = "db"
+  name                = "tc-db-iaas-app-frc-001"
   resource_group_name = var.rg_name
   server_name         = azurerm_mysql_flexible_server.mysql.name
   charset             = "utf8"

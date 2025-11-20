@@ -41,5 +41,13 @@ variable "database_login" {
 
 variable "database_password" {
   type = string
-  default = "ChangeMoi"
+  sensitive = true
+}
+
+variable "subnet" {
+  type = map(string)
+  default = {
+    name           = "tc-snet-iaas-frc-001"
+    address_prefix = "10.0.1.0/24"
+  }
 }

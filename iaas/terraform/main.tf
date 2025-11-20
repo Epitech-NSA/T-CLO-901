@@ -30,10 +30,7 @@ module "network" {
 
   rg_name      = data.azurerm_resource_group.rg-nan_1.name
   rg_location  = data.azurerm_resource_group.rg-nan_1.location
-  subnet = {
-    name           = "subnet_iaas"
-    address_prefix = "10.0.1.0/24"
-  }
+  subnet = var.subnet
 }
 
 module "vm" {

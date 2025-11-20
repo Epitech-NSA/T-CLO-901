@@ -22,8 +22,6 @@ resource "azurerm_storage_account" "storage_account" {
   resource_group_name             = var.rg_name
   min_tls_version                 = var.storage.min_tls
   allow_nested_items_to_be_public = var.storage_allow_nested_items_to_be_public
-  tags = {}
-  timeouts {}
 }
 
 resource "azurerm_container_registry" "acr" {
