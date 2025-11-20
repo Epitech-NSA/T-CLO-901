@@ -1,5 +1,35 @@
-- name: Initialisation de VM TerraCloud
+- name: Init TerraCloud VMs
   hosts: all
   become: yes
   roles:
     - setup_ssh_key
+    - install_docker
+#    - setup_iptables
+
+- name: Deploy app files
+  hosts: all
+  become: true
+
+  vars:
+    cloud_app_dir: /opt/cloud-app
+    local_files_path: ../files
+    files_to_copy:
+      - .env
+      - docker-compose.yaml
+  tasks:
+    - name: Create folder {{ cloud_app_dir }}
+      file:
+        path: "{{ cloud_app_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Copy files {{ cloud_app_dir }}
+      copy:
+        src: "{{ local_files_path }}/{{ item }}"
+        dest: "{{ cloud_app_dir }}/{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop: "{{ files_to_copy }}"

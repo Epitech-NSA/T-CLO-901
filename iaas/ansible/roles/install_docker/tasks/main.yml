@@ -1,0 +1,67 @@
+- name: Check if Docker is already installed
+  ansible.builtin.command: docker --version
+  register: docker_check
+  ignore_errors: yes
+
+- name: Defines a fact if Docker is present
+  ansible.builtin.set_fact:
+    docker_installed: true
+  when: docker_check.rc == 0
+
+- name: Message if Docker is already installed
+  ansible.builtin.debug:
+    msg: "Docker already installed."
+  when: docker_installed | default(false)
+
+- name: Updates the list of packages
+  when: not docker_installed | default(false)
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install the necessary dependencies
+  when: not docker_installed | default(false)
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - lsb-release
+    state: present
+
+- name: Create the directory for the Docker APT keys
+  when: not docker_installed | default(false)
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Download the official Docker GPG key
+  when: not docker_installed | default(false)
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+
+- name: Configure the Docker repository for APT
+  when: not docker_installed | default(false)
+  ansible.builtin.shell: |
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+    https://download.docker.com/linux/{{ ansible_distribution | lower }} $(lsb_release -cs) stable" \
+    | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    executable: /bin/bash
+
+- name: Updates the list of packages with the Docker repository
+  when: not docker_installed | default(false)
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Docker Engine, CLI, and plugins
+  when: not docker_installed | default(false)
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present

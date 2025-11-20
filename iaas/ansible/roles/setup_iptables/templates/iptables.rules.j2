@@ -1,0 +1,13 @@
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+{% for port in iptables_allowed_ports %}
+    -A INPUT -p tcp --dport {{ port }} -j ACCEPT
+{% endfor %}
+
+COMMIT
