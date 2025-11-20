@@ -1,0 +1,33 @@
+services:
+  traefik:
+    image: "traefik:v3.0"
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.metrics.address=:8082"
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+    ports:
+      - "80:80"
+      - "8082:8082"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  app:
+    container_name: app
+    image : "image-iaas:latest"
+    ports:
+      - "8081:80"
+    environment:
+      APP_DEBUG: ${APP_DEBUG}
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=HostRegexp(`.*`)"
