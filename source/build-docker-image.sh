@@ -3,7 +3,7 @@ set -e
 set -o pipefail
 
 # ---------- CONFIGURATION ----------
-ACR_NAME="tcdevacrfrc01"                  # Nom du registre (sans .azurecr.io)
+ACR_NAME="tcdevacrfrc01"                # Nom du registre (sans .azurecr.io)
 IMAGE_NAME="image-iaas"                 # Nom de ton image locale
 IMAGE_TAG="latest"                      # Tag de ton image
 LOCATION="francecentral"                # Région Azure (si création ACR)
