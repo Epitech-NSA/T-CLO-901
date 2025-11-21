@@ -1,3 +1,11 @@
+---
+- name: Common variables
+  hosts: all
+  become: yes
+  vars:
+    cloud_app_dir: /opt/cloud-app
+    local_files_path: ../files
+
 - name: Init TerraCloud VMs
   hosts: all
   become: yes
@@ -13,37 +21,29 @@
   vars:
     cloud_app_dir: /opt/cloud-app
     local_files_path: ../files
-    files_to_copy:
-      - .env
-      - docker-compose.yaml
+
   tasks:
-    - name: Create folder {{ cloud_app_dir }}
-      file:
+    - name: Create app directory
+      ansible.builtin.file:
         path: "{{ cloud_app_dir }}"
         state: directory
-        owner: root
-        group: root
         mode: '0755'
 
-    - name: Copy files {{ cloud_app_dir }}
-      copy:
-        src: "{{ local_files_path }}/{{ item }}"
-        dest: "{{ cloud_app_dir }}/{{ item }}"
-        owner: root
-        group: root
-        mode: '0644'
-      loop: "{{ files_to_copy }}"
+    - name: Template app .env file
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/../templates/.env.j2"
+        dest: "{{ cloud_app_dir }}/.env"
+
+    - name: Template app docker-compose file
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/../files/docker-compose.yaml"
+        dest: "{{ cloud_app_dir }}/docker-compose.yaml"
 
 - name: Login ACR et lancer docker compose
   hosts: all
   become: yes
 
   tasks:
-    - name: Aller dans le dossier /opt/cloud-app
-      ansible.builtin.file:
-        path: /opt/cloud-app
-        state: directory
-
     - name: Login à l'ACR
       ansible.builtin.command: >
         docker login tcdevacrfrc01.azurecr.io

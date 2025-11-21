@@ -16,6 +16,7 @@ services:
   app:
     container_name: app
     image : "tcdevacrfrc01.azurecr.io/image-iaas:latest"
+    command: sh -c "php artisan migrate --force"
     ports:
       - "8081:80"
     environment:
