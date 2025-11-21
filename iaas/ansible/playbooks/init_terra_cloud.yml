@@ -38,9 +38,6 @@
   hosts: all
   become: yes
 
-  vars:
-    acr_password: "ACR_PASSWORD"
-
   tasks:
     - name: Aller dans le dossier /opt/cloud-app
       ansible.builtin.file:
