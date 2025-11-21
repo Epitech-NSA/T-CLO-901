@@ -25,7 +25,7 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_container_registry" "acr" {
-  name                = "tcdevacrfrc01"
+  name                = var.acr_name
   resource_group_name = var.rg_name
   location            = var.rg_location
   sku                 = "Basic"
