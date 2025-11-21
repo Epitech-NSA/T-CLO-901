@@ -1,0 +1,5 @@
+rg_name = "rg-nan_1"
+rg_location = "francecentral"
+database_login = "identifiant"
+database_password = "YOUR_SECURE_PASSWORD"
+acr_name = "tcdevacrfrc01"

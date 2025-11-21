@@ -11,14 +11,14 @@ variable "subnet_id" {
 }
 
 resource "azurerm_public_ip" "vm_app_ip" {
-  name                = "tc-pip-app-frc-001"
+  name                = "tc-pip-app-frc-01"
   location            = var.rg_location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "vm_app_nic" {
-  name                = "tc-nic-app-frc-001"
+  name                = "tc-nic-app-frc-01"
   location            = var.rg_location
   resource_group_name = var.rg_name
 
@@ -31,7 +31,7 @@ resource "azurerm_network_interface" "vm_app_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm_app" {
-  name                = "tc-vm-app-frc-001"
+  name                = "tc-vm-app-frc-01"
   location            = var.rg_location
   resource_group_name = var.rg_name
   network_interface_ids = [azurerm_network_interface.vm_app_nic.id]

@@ -1,7 +1,7 @@
 variable "vnet" {
   type = map(string)
   default = {
-    name = "tc-vnet-iaas-frc-001"
+    name = "tc-vnet-iaas-frc-01"
     address_space = "10.0.0.0/16"
   }
 }

@@ -34,7 +34,7 @@ variable "database_password" {
 variable "subnet" {
   type = map(string)
   default = {
-    name           = "tc-snet-iaas-frc-001"
+    name           = "tc-snet-iaas-frc-01"
     address_prefix = "10.0.1.0/24"
   }
 }
