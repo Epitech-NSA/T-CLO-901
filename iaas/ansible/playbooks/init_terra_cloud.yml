@@ -13,7 +13,6 @@
   vars:
     cloud_app_dir: /opt/cloud-app
     local_files_path: ../files
-    acr_password: putUrPasswordHere
     files_to_copy:
       - .env
       - docker-compose.yaml
@@ -38,6 +37,9 @@
 - name: Login ACR et lancer docker compose
   hosts: all
   become: yes
+
+  vars:
+    acr_password: "ACR_PASSWORD"
 
   tasks:
     - name: Aller dans le dossier /opt/cloud-app

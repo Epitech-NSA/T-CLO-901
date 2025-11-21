@@ -9,4 +9,4 @@ ssh_users:
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPr/L/qdOESYEissO1xa0tNgW26ZA89yQMipUe1dBkoT Mohamed_pc_portable_wsl"
 
   - name : "Mohamed_pc_portable_wsl"
-    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIBUuClCogy9l2IRjMm/JwtDXR9aO8a4uZa9AzEU4aQb Mohamed_pc_portable_wsl"
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChzawrzKtMkHei10sSI+n21nIjzmyinv1/Ung7rTm4maC5qmpL24+gXeEjYL4vFO6LQJsoS2DTqjFZuBMy/VjsYEp0AjcZy5eeqAkgqZrxKyIu0hIzAJ4+zP0dBtTA3nli6Xi73zvA53ZaDpItZsjkFIcJxY6qqehUZp+xkiym8wbgbfwwLwUjdjs9z5C1hMY7UxUh2xx6VjuQRnZBAtGIympKOAAnI+psAcFpgUCL8qeujh/E5r24ZCIhg5PCbzp44g4jk2sn3QOgTtf8cW7+3dZZlpnKYTxWTysHDsbVoeaJXfvUMD4k2HkRw/qWesAY3xQ1GKYw3aVms6hjhy8PMLvPnFPwmm2M1rHzFPCu9oXen/2SzexL6zo2xcOVZ82UDB7K9L4c/hoA9tDAQiovqoiXtGNxYZNM0w3lWYqIihPT74leLNKMh3g0IBch7nUT+ZYxJ+RtAzJZIvkW4lvu7yeShz+4wxoSG3ttW/H++qmw0MQMQuKGC9A4a/bzQ1c= mohamed@DESKTOP-K4GCHS5"
