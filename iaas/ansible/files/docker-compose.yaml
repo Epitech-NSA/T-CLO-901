@@ -15,7 +15,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
   app:
     container_name: app
-    image : "image-iaas:latest"
+    image : "tcdevacrfrc01.azurecr.io/image-iaas:latest"
     ports:
       - "8081:80"
     environment:
