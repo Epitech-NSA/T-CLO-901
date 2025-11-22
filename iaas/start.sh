@@ -22,4 +22,5 @@ ansible-playbook playbooks/init_terra_cloud.yml --limit terra_cloud_app \
   --extra-vars "db_host=$DB_HOST" \
   --extra-vars "db_database=$DB_DATABASE" \
   --extra-vars "db_username=$DB_USERNAME" \
-  --extra-vars "db_password=$DB_PASSWORD"
+  --extra-vars "db_password=$DB_PASSWORD" \
+  --extra-vars "app_key=base64:DJYTvaRkEZ/YcQsX3TMpB0iCjgme2rhlIOus9A1hnj4="
