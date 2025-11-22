@@ -54,6 +54,6 @@
         chdir: /opt/cloud-app
 
     - name: Lancer docker compose up
-      ansible.builtin.command: docker compose up -d
+      ansible.builtin.command: sudo docker compose up -d
       args:
         chdir: /opt/cloud-app
