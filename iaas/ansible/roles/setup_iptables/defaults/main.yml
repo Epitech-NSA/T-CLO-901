@@ -1,5 +1,0 @@
-iptables_allowed_ports:
-  - 22
-  - 80
-  - 443
-iptables_rules_path: /etc/iptables.rules

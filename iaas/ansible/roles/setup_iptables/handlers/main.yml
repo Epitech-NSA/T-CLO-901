@@ -1,2 +1,0 @@
-- name: Restore iptables rules
-  ansible.builtin.shell: "iptables-restore < {{ iptables_rules_path }}"

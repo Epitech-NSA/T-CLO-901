@@ -12,7 +12,7 @@
   roles:
     - setup_ssh_key
     - install_docker
-#    - setup_iptables
+
 
 - name: Deploy app files
   hosts: all
