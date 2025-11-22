@@ -14,6 +14,21 @@ resource "azurerm_mysql_flexible_database" "db" {
   name                = "tc-db-paas-app-frc-01"
   resource_group_name = var.rg_name
   server_name         = azurerm_mysql_flexible_server.mysql.name
-  charset             = "utf8"
-  collation           = "utf8_general_ci"
+  charset             = "utf8mb3"
+  collation           = "utf8mb3_general_ci"
+}
+
+resource "azurerm_mysql_flexible_server_firewall_rule" "azure_services" {
+  name                = "AllowAzureServices"
+  resource_group_name = var.rg_name
+  server_name         = azurerm_mysql_flexible_server.mysql.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}
+
+resource "azurerm_mysql_flexible_server_configuration" "require_secure_transport" {
+  name                = "require_secure_transport"
+  resource_group_name = var.rg_name
+  server_name         = azurerm_mysql_flexible_server.mysql.name
+  value               = "OFF"
 }
