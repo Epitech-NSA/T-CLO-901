@@ -81,7 +81,6 @@ ansible/
 - `install_docker` : Installe Docker et Docker Compose sur la VM
 - `setup_ssh_key` : Configure l'accès SSH
 
-**Note :** Le rôle `setup_iptables` a été supprimé car la sécurité réseau est maintenant gérée par le Network Security Group (NSG) créé dans Terraform.
 
 **Playbook principal :**
 - `init_terra_cloud.yml` : Orchestre l'exécution des rôles et démarre l'application

@@ -2,48 +2,6 @@
 
 Ce document explique le workflow complet du déploiement PaaS, étape par étape.
 
-## Vue d'ensemble du processus
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    DÉPLOIEMENT PAAS                          │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  1. Préparation                      │
-        │  - Build & Push Docker Image         │
-        │  - Configuration variables           │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  2. Terraform Init                   │
-        │  - Initialisation backend            │
-        │  - Téléchargement providers          │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  3. Terraform Apply                  │
-        │  - Création infrastructure            │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  4. App Service Configuration        │
-        │  - Pull image Docker                 │
-        │  - Configuration variables           │
-        │  - Démarrage application             │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  5. Application déployée              │
-        │  - Application accessible            │
-        └─────────────────────────────────────┘
-```
-
 ## Diagramme de séquence du déploiement
 
 Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement PaaS :
@@ -175,47 +133,6 @@ terraform apply -var-file="terraform.tfvars" -auto-approve
 - Base de données connectée via réseau privé
 - Conteneur Docker en cours d'exécution
 - Logs disponibles dans Azure Portal
-
-## Flux de données
-
-### Flux de déploiement
-
-```
-Utilisateur
-    │
-    ├─► Build Docker Image ──► ACR
-    │
-    └─► Terraform ──► Azure (Infrastructure)
-                        │
-                        ├─► VNet (2 sous-réseaux)
-                        ├─► App Service Plan
-                        ├─► Linux Web App
-                        └─► MySQL Flexible Server
-                            │
-                            └─► Private Endpoint
-```
-
-### Flux de requêtes utilisateur
-
-```
-Utilisateur (Navigateur)
-    │
-    ▼
-HTTPS (Port 443)
-    │
-    ▼
-App Service (Linux Web App)
-    │
-    ├─► Docker Container (Laravel App)
-    │       │
-    │       └─► Private Endpoint
-    │               │
-    │               ▼
-    │           MySQL Flexible Server
-    │           (via réseau privé)
-    │
-    └─► Réponse HTTPS ──► Utilisateur
-```
 
 ## Ordre d'exécution détaillé
 

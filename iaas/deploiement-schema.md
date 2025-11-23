@@ -2,55 +2,6 @@
 
 Ce document explique le workflow complet du déploiement IaaS, étape par étape.
 
-## Vue d'ensemble du processus
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    DÉPLOIEMENT IAAS                         │
-└─────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  1. Préparation                      │
-        │  - Build & Push Docker Image         │
-        │  - Configuration variables           │
-        │  - Configuration clé SSH              │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  2. Terraform Init                   │
-        │  - Initialisation backend            │
-        │  - Téléchargement providers          │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  3. Terraform Apply                  │
-        │  - Création infrastructure           │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  4. Récupération Outputs            │
-        │  - ACR credentials                   │
-        │  - DB credentials                    │
-        │  - VM IP address                     │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  5. Ansible Playbook                 │
-        │  - Configuration VM                  │
-        └─────────────────────────────────────┘
-                              │
-                              ▼
-        ┌─────────────────────────────────────┐
-        │  6. Application déployée             │
-        │  - Application accessible            │
-        └─────────────────────────────────────┘
-```
-
 ## Diagramme de séquence du déploiement
 
 Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement IaaS :
@@ -128,7 +79,7 @@ terraform apply -var-file="secret.tfvars" -auto-approve
 **Note :** Un Network Security Group (NSG) est désormais créé et associé au sous-réseau. La sécurité réseau est gérée par :
 - Le Network Security Group (NSG) pour filtrer le trafic vers la VM (ports 22, 80, 443 ouverts).
 - Les règles de pare-feu de la base de données Azure (qui autorisent les connexions depuis certaines IP).
-- Le rôle Ansible `setup_iptables` est désactivé car le NSG prend le relais pour la sécurité réseau de la VM.
+- Ansible n'a pas besoin de configurer les iptables car le NSG prend le relais pour la sécurité réseau de la VM.
 
 **Résultat :**
 - Infrastructure Azure complète créée
@@ -224,47 +175,6 @@ ansible-playbook playbooks/init_terra_cloud.yml \
 - Base de données connectée
 - Conteneurs Docker en cours d'exécution
 
-## Flux de données
-
-### Flux de déploiement
-
-```
-Utilisateur
-    │
-    ├─► Build Docker Image ──► ACR
-    │
-    ├─► Terraform ──► Azure (Infrastructure)
-    │                    │
-    │                    ├─► VNet
-    │                    ├─► VM
-    │                    └─► MySQL DB
-    │
-    └─► Ansible ──► VM
-                      │
-                      ├─► Install Docker
-                      ├─► Configure Firewall
-                      └─► Start App Container
-```
-
-### Flux de requêtes utilisateur
-
-```
-Utilisateur (Navigateur)
-    │
-    ▼
-Public IP Address
-    │
-    ▼
-Virtual Machine
-    │
-    ▼
-Docker Container (Laravel App)
-    │
-    ├─► MySQL Database (via réseau privé)
-    │
-    └─► Réponse HTTP ──► Utilisateur
-```
-
 ## Ordre d'exécution détaillé
 
 1. **Terraform Bootstrap** → Crée/vérifie le Resource Group
@@ -277,26 +187,10 @@ Docker Container (Laravel App)
 8. **Ansible Firewall Setup** → Configure iptables
 9. **Ansible App Deploy** → Démarre l'application
 
-## Durée estimée
-
-- **Build & Push Docker** : 2-5 minutes
-- **Terraform Apply** : 5-10 minutes
-- **Ansible Playbook** : 3-5 minutes
-- **Total** : ~10-20 minutes
-
 ## Points d'attention
 
 1. **Clé SSH** : Doit être configurée avant le déploiement
 2. **Image Docker** : Doit être poussée dans ACR avant le déploiement
 3. **Variables** : Toutes les variables doivent être correctement configurées
 4. **Réseau** : La VM doit pouvoir accéder à ACR et à la base de données
-5. **Timing** : Attendre que la VM soit complètement initialisée avant qu'Ansible puisse se connecter
-
-## Dépannage
-
-Si une étape échoue :
-1. Vérifiez les logs de l'étape précédente
-2. Vérifiez que toutes les prérequis sont remplis
-3. Vérifiez les permissions Azure
-4. Consultez la section Dépannage du tutoriel
 
