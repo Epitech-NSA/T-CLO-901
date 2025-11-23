@@ -1,15 +1,65 @@
 # T-CLO-901
 
-## IaaS
-Avant tout, il est nécessaire d'avoir le Terraform CLI Azure CLI d'installés.
+Projet de comparaison entre deux formats de déploiement sur Azure : **IaaS** (Terraform + Ansible) et **PaaS** (Terraform).
 
-On se place dans le dossier /terraform-iaas, on init terraform : 
-- `cd terraform-iaas`
-- `terraform init`
+## 📚 Documentation
 
-Si besoin, pour récupérer l'id du Resource Group et Storage Account existants sur depuis azure, il faut rentrer ces deux commandes : 
-- `terraform import azurerm_resource_group.rg-nan_1 /subscriptions/6b9318b1-2215-418a-b0fd-ba0832e9b333/resourceGroups/rg-nan_1`
-- `terraform import azurerm_storage_account.storage_account /subscriptions/6b9318b1-2215-418a-b0fd-ba0832e9b333/resourceGroups/rg-nan_1/providers/Microsoft.Storage/storageAccounts/terracloudstate28602`
+**👉 Consultez la [documentation complète](docs/index.md) pour des guides détaillés.**
 
-Puis, on se place dans le dossier , et on fait :
-- `terraform apply`
+La documentation suit la méthode Diataxis et inclut :
+- **Tutoriels** : Guides pas à pas pour déployer en IaaS et PaaS
+- **Guides pratiques** : Construire les images Docker, configurer les variables, détruire l'infrastructure
+- **Référence** : Variables Terraform, structure du projet
+- **Explications** : Différences IaaS vs PaaS, architecture du projet
+
+## 🚀 Démarrage rapide
+
+### Prérequis
+
+- [Terraform](https://www.terraform.io/downloads) (>= 1.1.0)
+- [Azure CLI](https://docs.microsoft.com/fr-fr/cli/azure/install-azure-cli)
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/index.html) (pour IaaS uniquement)
+- [Docker](https://www.docker.com/get-started)
+- Un compte Azure avec les permissions appropriées
+
+### IaaS
+
+```bash
+# 1. Construire et pousser l'image Docker
+cd source
+./build-docker-image-iaas.sh
+
+# 2. Configurer les variables
+cd ../iaas/terraform
+cp secret.tfvars.example secret.tfvars
+# Éditer secret.tfvars avec vos valeurs
+
+# 3. Déployer
+cd ..
+./start.sh
+```
+
+### PaaS
+
+```bash
+# 1. Construire et pousser l'image Docker
+cd source
+./build-docker-image-paas.sh
+
+# 2. Configurer les variables
+cd ../paas/terraform
+cp terraform.tfvars.example terraform.tfvars
+# Éditer terraform.tfvars avec vos valeurs
+
+# 3. Déployer
+cd ..
+./start.sh
+```
+
+## 📖 Pour plus d'informations
+
+Consultez la [documentation complète](docs/index.md) pour :
+- Des tutoriels détaillés pas à pas
+- Des guides pratiques pour les tâches courantes
+- La référence technique complète
+- Des explications sur les concepts et architectures
