@@ -44,6 +44,12 @@ Ce document explique le workflow complet du déploiement PaaS, étape par étape
         └─────────────────────────────────────┘
 ```
 
+## Diagramme de séquence du déploiement
+
+Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement PaaS :
+
+![Diagramme de séquence du déploiement PaaS](./deploiement-paas-diagramme-sequence.png)
+
 ## Détail des étapes
 
 ### Étape 1 : Préparation

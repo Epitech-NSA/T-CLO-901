@@ -51,6 +51,12 @@ Ce document explique le workflow complet du déploiement IaaS, étape par étape
         └─────────────────────────────────────┘
 ```
 
+## Diagramme de séquence du déploiement
+
+Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement IaaS :
+
+![Diagramme de séquence du déploiement IaaS](./deploiement-iaas-diagramme-sequence.png)
+
 ## Détail des étapes
 
 ### Étape 1 : Préparation
