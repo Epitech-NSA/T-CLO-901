@@ -47,6 +47,7 @@ sequenceDiagram
     WA->>DB: Query
     DB-->>WA: Data
     WA-->>U: HTTPS Response
+```
 
 ## Détail des étapes
 

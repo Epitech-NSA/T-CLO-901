@@ -53,6 +53,7 @@ sequenceDiagram
     VM->>DB: Query
     DB-->>VM: Data
     VM-->>U: HTTP Response
+```
 
 ## Détail des étapes
 
