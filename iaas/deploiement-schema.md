@@ -6,7 +6,53 @@ Ce document explique le workflow complet du déploiement IaaS, étape par étape
 
 Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement IaaS :
 
-![Diagramme de séquence du déploiement IaaS](./deploiement-iaas-diagramme-sequence.png)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as Utilisateur
+    participant ACR as ACR
+    participant TF as Terraform
+    participant Azure as Azure
+    participant AS as Ansible
+    participant VM as VM
+    participant DB as MySQL
+
+    Note over U,DB: Phase 1: Préparation
+    U->>ACR: Build & Push image Docker
+    ACR-->>U: Image disponible
+
+    Note over U,DB: Phase 2: Infrastructure Terraform
+    U->>TF: terraform init
+    TF->>Azure: Init backend & providers
+    Azure-->>TF: Prêt
+    
+    U->>TF: terraform apply
+    TF->>Azure: Création VNet + NSG
+    TF->>Azure: Création MySQL DB
+    TF->>Azure: Création VM
+    Azure-->>TF: Infrastructure créée
+    TF-->>U: Outputs disponibles
+
+    Note over U,DB: Phase 3: Configuration Ansible
+    U->>AS: ansible-playbook
+    AS->>VM: Connexion SSH
+    AS->>VM: Config SSH + Installation Docker
+    AS->>VM: Copie du docker-compose
+    AS->>VM: Docker login ACR
+    VM->>ACR: Authentification
+    ACR-->>VM: OK
+    AS->>VM: docker compose up
+    VM->>ACR: Pull image
+    VM->>VM: Lancement containers
+    VM->>DB: Migration + lancement
+    DB-->>VM: OK
+    AS-->>U: Déploiement terminé
+
+    Note over U,DB: Phase 4: Application accessible
+    U->>VM: HTTP Request
+    VM->>DB: Query
+    DB-->>VM: Data
+    VM-->>U: HTTP Response
 
 ## Détail des étapes
 

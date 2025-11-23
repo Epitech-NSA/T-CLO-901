@@ -6,7 +6,47 @@ Ce document explique le workflow complet du déploiement PaaS, étape par étape
 
 Le diagramme suivant illustre les interactions entre les différents composants lors du déploiement PaaS :
 
-![Diagramme de séquence du déploiement PaaS](./deploiement-paas-diagramme-sequence.png)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as Utilisateur
+    participant ACR as ACR
+    participant TF as Terraform
+    participant Azure as Azure
+    participant WA as App Service
+    participant DB as MySQL
+
+    Note over U,DB: Phase 1: Préparation
+    U->>ACR: Build & Push image Docker
+    ACR-->>U: Image disponible
+
+    Note over U,DB: Phase 2: Infrastructure Terraform
+    U->>TF: terraform init
+    TF->>Azure: Init backend & providers
+    Azure-->>TF: Prêt
+    
+    U->>TF: terraform apply
+    TF->>Azure: Création VNet + Subnets
+    TF->>Azure: Création MySQL + Private Endpoint
+    TF->>Azure: Création App Service Plan
+    TF->>Azure: Création Web App
+    Azure->>WA: Configuration Docker + VNet
+    Azure-->>TF: Infrastructure créée
+    TF-->>U: Déploiement terminé
+
+    Note over U,DB: Phase 3: Démarrage automatique
+    WA->>ACR: Pull image (auto)
+    ACR-->>WA: Image téléchargée
+    WA->>WA: Démarrage
+    WA->>DB: Migrations + Lancement du serveur
+    DB-->>WA: OK
+    WA-->>Azure: Health check OK
+
+    Note over U,DB: Phase 4: Application accessible
+    U->>WA: HTTPS Request
+    WA->>DB: Query
+    DB-->>WA: Data
+    WA-->>U: HTTPS Response
 
 ## Détail des étapes
 
